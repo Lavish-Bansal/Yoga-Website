@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const d = new Date();
@@ -23,36 +25,31 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [age, setAge] = useState("");
   const [batch, setBatch] = useState("6:00 - 7:00 AM");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name);
     console.log(email);
 
-    const response = await fetch('http://localhost:5000/api/auth/payment/', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        phone: phone,
-        age: age,
-        batch: batch,
-      }),
+    Axios.post("/api/auth/payment", {
+      name: name,
+      email: email,
+      phone: phone,
+      age: age,
+      batch: batch,
     })
-    .then((res) =>{
-      console.log(res);
-      if(response.status === 200)
-        console.log("success");
-    })
-    .catch((err) =>{
-      console.log(err);
-    })
-    // const userData = await response.json();
-    // console.log(userData);
-    // if (response.status === 200) alert("Payment Successful");
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Payment Successful");
+          navigate("/");
+        }
+        console.log(res);
+      })
+      .catch((err) => {
+        alert("Transaction Failed, Try again");
+        navigate("/");
+      });
   };
 
   return (

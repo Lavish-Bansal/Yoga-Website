@@ -16,7 +16,9 @@ const completePayment = async (req, res) => {
     });
 
     const registered = await newUser.save();
-    res.status(200);
+    // console.log(registered);
+    res.json({"message": "submitted"});
+    // res.status(200);
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
