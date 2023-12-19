@@ -29,10 +29,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name);
-    console.log(email);
 
-    Axios.post("/api/auth/payment", {
+    Axios.post("https://yoga-klk9.onrender.com/api/auth/payment", {
       name: name,
       email: email,
       phone: phone,
