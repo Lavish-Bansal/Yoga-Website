@@ -44,7 +44,6 @@ const Register = () => {
           alert("Payment Successful");
           navigate("/");
         }
-        console.log(res);
       })
       .catch((err) => {
         alert("Transaction Failed, Try again");
